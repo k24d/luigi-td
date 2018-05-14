@@ -245,8 +245,8 @@ class BulkImportTestCase(TestCase):
     def test_s3_path(self):
         class TestInput(luigi.ExternalTask):
             def output(self):
-                s3client = luigi.s3.S3Client(aws_access_key_id='test-key', aws_secret_access_key='test-secret')
-                return luigi.s3.S3Target('s3://test-bucket/test_input.tsv', client=s3client)
+                s3client = luigi.contrib.s3.S3Client(aws_access_key_id='test-key', aws_secret_access_key='test-secret')
+                return luigi.contrib.s3.S3Target('s3://test-bucket/test_input.tsv', client=s3client)
         class TestBulkImportFromS3Target(TestBulkImport):
             def requires(self):
                 return TestInput()
