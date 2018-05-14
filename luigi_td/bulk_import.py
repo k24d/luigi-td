@@ -6,7 +6,7 @@ import subprocess
 import shutil
 import time
 import luigi
-import luigi.s3
+import luigi.contrib.s3
 import tdclient
 
 from six.moves.urllib.parse import urlparse
@@ -211,7 +211,7 @@ class BulkImport(luigi.Task):
         if isinstance(target, luigi.LocalTarget):
             return os.path.abspath(target.path)
         # S3Target
-        if isinstance(target, luigi.s3.S3Target):
+        if isinstance(target, luigi.contrib.s3.S3Target):
             url = urlparse(target.path)
             return "s3://{aws_access_key_id}:{aws_secret_access_key}@/{bucket}{path}".format(
                 aws_access_key_id = target.fs.s3.aws_access_key_id,
